@@ -126,8 +126,3 @@ spec:
       - networksecurity.googleapis.com
       - networkconnectivity.googleapis.com
       - iam.googleapis.com
-    providerVersions:
-      - source: hashicorp/google
-        version: ">= 6.19, < 7"
-      - source: hashicorp/google-beta
-        version: ">= 6.19, < 7"
