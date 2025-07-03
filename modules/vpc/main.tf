@@ -1,8 +1,22 @@
 /******************************************
 	VPC configuration
  *****************************************/
+
+/**
+ * This resource creates a Google Cloud VPC network.
+ * 
+ * Parameters:
+ * - name: The name of the network.
+ * - auto_create_subnetworks: Boolean to specify if subnets should be auto-created.
+ * - routing_mode: The network routing mode (e.g., "REGIONAL" or "GLOBAL").
+ * - project: The GCP project ID where the network will be created.
+ * - description: A description of the network.
+ * - delete_default_routes_on_create: Boolean to delete default internet gateway routes.
+ * - mtu: The maximum transmission unit for the network.
+ * - enable_ula_internal_ipv6: Boolean to enable ULA internal IPv6.
+ * - internal_ipv6_range: The range of internal IPv6 addresses.
+ */
 resource "google_compute_network" "network" {
-  provider                                  = google-beta
   name                                      = var.network_name
   auto_create_subnetworks                   = var.auto_create_subnetworks
   routing_mode                              = var.routing_mode
@@ -12,19 +26,4 @@ resource "google_compute_network" "network" {
   mtu                                       = var.mtu
   enable_ula_internal_ipv6                  = var.enable_ipv6_ula
   internal_ipv6_range                       = var.internal_ipv6_range
-  network_firewall_policy_enforcement_order = var.network_firewall_policy_enforcement_order
-  network_profile                           = var.network_profile
-  bgp_always_compare_med                    = var.bgp_always_compare_med
-  bgp_best_path_selection_mode              = var.bgp_best_path_selection_mode
-  bgp_inter_region_cost                     = var.bgp_inter_region_cost
-}
-
-/******************************************
-	Shared VPC
- *****************************************/
-resource "google_compute_shared_vpc_host_project" "shared_vpc_host" {
-
-  count      = var.shared_vpc_host ? 1 : 0
-  project    = var.project_id
-  depends_on = [google_compute_network.network]
 }

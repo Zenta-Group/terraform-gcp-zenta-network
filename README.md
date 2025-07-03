@@ -23,10 +23,6 @@ module "vpc" {
   enable_ipv6_ula                           = false
   internal_ipv6_range                       = null
   network_firewall_policy_enforcement_order = null
-  network_profile                           = null
-  bgp_always_compare_med                    = false
-  bgp_best_path_selection_mode              = "LEGACY"
-  bgp_inter_region_cost                     = null
 }
 ```
 
@@ -47,10 +43,6 @@ module "vpc" {
 | `enable_ipv6_ula`                     | `bool`                                                               | Habilita IPv6 ULA.                                                                                           | `false`           |
 | `internal_ipv6_range`                 | `string`                                                             | Rango IPv6 interno opcional.                                                                                 | `null`            |
 | `network_firewall_policy_enforcement_order` | `string`                                                         | Orden de evaluación de reglas de firewall (`BEFORE_CLASSIC_FIREWALL` o `AFTER_CLASSIC_FIREWALL`).            | `null`            |
-| `network_profile`                     | `string`                                                             | URL completa o parcial del perfil de red a aplicar.                                                          | `null`            |
-| `bgp_always_compare_med`              | `bool`                                                               | Si es `true`, el router usará valores MED incluso si las rutas AS difieren.                                  | `false`           |
-| `bgp_best_path_selection_mode`        | `string`                                                             | Modo de selección de la mejor ruta BGP (`STANDARD` o `LEGACY`).                                              | `LEGACY`          |
-| `bgp_inter_region_cost`               | `string`                                                             | Modo de costo interregional BGP (`DEFAULT` o `ADD_COST_TO_MED`).                                             | `null`            |
 
 ## Salidas
 

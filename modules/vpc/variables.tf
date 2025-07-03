@@ -1,4 +1,3 @@
-
 variable "project_id" {
   description = "The ID of the project where this VPC will be created"
   type        = string
@@ -15,9 +14,9 @@ variable "routing_mode" {
   description = "The network routing mode (default 'GLOBAL')"
 }
 
-variable "shared_vpc_host" {
+variable "auto_create_subnetworks" {
   type        = bool
-  description = "Makes this project a Shared VPC host if 'true' (default 'false')"
+  description = "When set to true, the network is created in 'auto subnet mode' and it will create a subnet for each region automatically across the 10.128.0.0/9 address range. When set to false, the network is created in 'custom subnet mode' so the user can explicitly connect subnetwork resources."
   default     = false
 }
 
@@ -25,12 +24,6 @@ variable "description" {
   type        = string
   description = "An optional description of this resource. The resource must be recreated to modify this field."
   default     = ""
-}
-
-variable "auto_create_subnetworks" {
-  type        = bool
-  description = "When set to true, the network is created in 'auto subnet mode' and it will create a subnet for each region automatically across the 10.128.0.0/9 address range. When set to false, the network is created in 'custom subnet mode' so the user can explicitly connect subnetwork resources."
-  default     = false
 }
 
 variable "delete_default_internet_gateway_routes" {
@@ -57,38 +50,3 @@ variable "internal_ipv6_range" {
   description = "When enabling IPv6 ULA, optionally, specify a /48 from fd20::/20 (default null)"
 }
 
-variable "network_firewall_policy_enforcement_order" {
-  type        = string
-  default     = null
-  description = "Set the order that Firewall Rules and Firewall Policies are evaluated. Valid values are `BEFORE_CLASSIC_FIREWALL` and `AFTER_CLASSIC_FIREWALL`. (default null or equivalent to `AFTER_CLASSIC_FIREWALL`)"
-}
-
-variable "network_profile" {
-  type        = string
-  default     = null
-  description = <<-EOT
-    "A full or partial URL of the network profile to apply to this network.
-    This field can be set only at resource creation time. For example, the
-    following are valid URLs:
-      * https://www.googleapis.com/compute/beta/projects/{projectId}/global/networkProfiles/{network_profile_name}
-      * projects/{projectId}/global/networkProfiles/{network_profile_name}
-    EOT
-}
-
-variable "bgp_always_compare_med" {
-  type        = bool
-  description = "If set to true, the Cloud Router will use MED values from the peer even if the AS paths differ. Default is false."
-  default     = false
-}
-
-variable "bgp_best_path_selection_mode" {
-  type        = string
-  description = "Specifies the BGP best path selection mode. Valid values are `STANDARD` or `LEGACY`. Default is `LEGACY`."
-  default     = "LEGACY"
-}
-
-variable "bgp_inter_region_cost" {
-  type        = string
-  description = "Specifies the BGP inter-region cost mode. Valid values are `DEFAULT` or `ADD_COST_TO_MED`."
-  default     = null
-}
