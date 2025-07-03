@@ -1,4 +1,4 @@
-# Ejemplo: Reglas Básicas de Firewall
+# Firewall Rules Example
 
 Este ejemplo demuestra cómo usar el módulo de reglas de firewall para crear una regla básica que permita el tráfico SSH en una red VPC.
 
@@ -6,7 +6,7 @@ Este ejemplo demuestra cómo usar el módulo de reglas de firewall para crear un
 
 ```hcl
 module "firewall_rules" {
-  source  = "../../modules/firewall-rules"
+  source  = "app.terraform.io/zentagroup/zenta-network/gcp"
 
   project_id   = var.project_id
   network_name = var.network_name
