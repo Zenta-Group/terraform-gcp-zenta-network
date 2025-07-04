@@ -1,29 +1,41 @@
+/******************************************
+	GLOBAL Environment START
+ *****************************************/
 variable "project_id" {
   description = "The ID of the project where this VPC will be created"
   type        = string
 }
-
-variable "network_name" {
-  description = "The name of the network being created"
+variable "environment" { 
+  description = "values: dev, staging, prod, etc. (default 'dev')"
   type        = string
+  validation {
+    condition     = can(regex("^(dev|stg|prod|qa|uat)$", var.environment))
+    error_message = "The environment must be one of: dev, staging, prod, qa, uat."
+  }
+  default = "dev" 
 }
+variable "application_name" { 
+  default = "system" 
+  description = "The name of the application using this VPC. This is used to create a unique network name."
+}
+/******************************************
+	GLOBAL Environment END
+ *****************************************/
 
-variable "routing_mode" {
-  type        = string
-  default     = "GLOBAL"
-  description = "The network routing mode (default 'GLOBAL')"
-}
+
+/******************************************
+	VPC Networking Environment START
+ *****************************************/
 
 variable "auto_create_subnetworks" {
   type        = bool
   description = "When set to true, the network is created in 'auto subnet mode' and it will create a subnet for each region automatically across the 10.128.0.0/9 address range. When set to false, the network is created in 'custom subnet mode' so the user can explicitly connect subnetwork resources."
   default     = false
 }
-
-variable "description" {
+variable "routing_mode" {
   type        = string
-  description = "An optional description of this resource. The resource must be recreated to modify this field."
-  default     = ""
+  default     = "GLOBAL"
+  description = "The network routing mode (default 'GLOBAL')"
 }
 
 variable "delete_default_internet_gateway_routes" {
@@ -49,4 +61,3 @@ variable "internal_ipv6_range" {
   default     = null
   description = "When enabling IPv6 ULA, optionally, specify a /48 from fd20::/20 (default null)"
 }
-

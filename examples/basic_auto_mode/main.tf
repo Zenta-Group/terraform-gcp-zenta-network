@@ -1,10 +1,10 @@
 # [START vpc_auto_create]
 
-module "zenta-network" {
+module "vpc_auto_mode" {
   source  = "app.terraform.io/zentagroup/zenta-network/gcp"
-  #version = "1.0.x"
-  project                 = var.project_id # Replace this with your project ID in quotes
-  name                    = "my-auto-mode-network"
+
+  project_id   = var.project_id
+  network_name = "${var.application_name}-${var.environment}-vpc"
   auto_create_subnetworks = true
 }
 # [END vpc_auto_create]
